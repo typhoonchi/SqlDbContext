@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace TyphoonChi
 {
-    class SqlDbContext:IDisposable
+    public class SqlDbContext:IDisposable
     {
         private string _connectString;
         private string _database;
