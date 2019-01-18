@@ -38,6 +38,8 @@ namespace TyphoonChi
             {
                 Connection = _sqlConnection
             };
+            _sqlBulkCopy = new SqlBulkCopy(_sqlConnection, SqlBulkCopyOptions.Default, _sqlTransaction);
+            _sqlDataAdapter = new SqlDataAdapter();
         }
 
         public SqlDbContext(string sqlConnectString)
@@ -67,7 +69,7 @@ namespace TyphoonChi
             Dispose(false);
         }
 
-        public void Dispose(bool disposing)
+        virtual protected void Dispose(bool disposing)
         {
             if(_disposed)
             {
@@ -79,8 +81,8 @@ namespace TyphoonChi
             }
             _sqlConnection.Close();
             _sqlConnection.Dispose();
-            _sqlDataAdapter?.Dispose();
-            _sqlBulkCopy?.Close();
+            _sqlDataAdapter.Dispose();
+            _sqlBulkCopy.Close();
             _sqlTransaction?.Dispose();
             //MessageBox.Show("调用了Dispose()");
             _disposed = true;
